@@ -88,6 +88,7 @@ function collectErrors(text: string): CorrectionError[] {
         start,
         end,
         type: rule.type,
+        scope: rule.type === 'grammar' || rule.type === 'vocabulary' ? 'word' : 'sentence',
         wrong,
         suggestion: preserveCase(wrong, rule.suggestion),
         reason: rule.reason,
@@ -157,6 +158,7 @@ export function analyzeEssay(text: string): CorrectResponse {
     originalText: text,
     revisedText,
     errors,
+    macroErrors: [],
     stats: {
       total: errors.length,
       grammarCount,
